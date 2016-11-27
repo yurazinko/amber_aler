@@ -3,6 +3,10 @@ class EmergenciesController < ApplicationController
   before_action :find_emergency, only: [:edit, :update, :show, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :only_author!, only: [:edit, :update, :destroy]
+ 
+  def index
+    @emergencies = Emergency.all.order('created_at DESC')
+  end
 
   def new
     @emergency = Emergency.new
@@ -16,10 +20,6 @@ class EmergenciesController < ApplicationController
     else
       render :new
     end
-  end
-
-  def index
-    @emergencies = Emergency.all
   end
 
   def edit
