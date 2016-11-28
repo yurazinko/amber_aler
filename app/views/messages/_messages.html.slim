@@ -12,8 +12,7 @@ table.table
         td
           == m.claim_closed  
         td
-          - if m.user == current_user
-            == link_to 'Edit', edit_message_path
+          == link_to 'edit', edit_message_path(@emergency)
         td
-          - if m.user == current_user
-           == link_to 'Delete', message_path, method: :delete , data:{confirm: 'Are you sure?'}
+          == link_to 'delete', message_path(m), method: :delete 
+
