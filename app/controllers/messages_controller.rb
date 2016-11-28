@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
 
   before_action :find_emergency, only: [:create, :edit, :update, :show, :destroy]
-#  before_action :find_message, only: [:create, :edit, :update, :show, :destroy]
+  before_action :find_message, only: [:create, :edit, :update, :show, :destroy]
 
   def index
     @messages = Message.all.order('created_at DESC')
@@ -49,11 +49,11 @@ class MessagesController < ApplicationController
   private
 
     def find_emergency
-      @emergency = Emergency.find(params[:id])
+      @emergency = Emergency.find(params[:emergency_id])
     end
 
     def find_message
-#      @message = @emergency.messages.find(params[:id])
+      @message = @emergency.messages.find(params[:id])
     end
 
     def messages_params
