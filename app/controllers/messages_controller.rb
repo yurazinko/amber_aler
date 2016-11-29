@@ -36,7 +36,7 @@ class MessagesController < ApplicationController
   end
 
   def destroy
-    if @message = @emergency.messages.destro(messages_params) 
+    if @message = @emergency.messages.destroy(messages_params) 
       redirect_to emergency_path(@emergency)
     else
       redirect_to messages_path, flash: {error: 'Something goes wrong'}
