@@ -1,55 +1,43 @@
 class MessagesController < ApplicationController
-  before_action :find_emergency_path, only: [:new, :create, :edit, :update, :show, :destroy]
-
-  def index
-    @messages = Message.all.order('created_at DESC')
-  end
-
-  def new
-    @message = Message.new
-  end
+  before_action :find_message, only: [:edit, :update, :destroy]
 
   def create
-    @message = @emergency.messages.create(messages_params)
+    @message = Message.new(message_params)
+    @message.emergency_id = params[:emergency_id]
     @message.user = current_user
 
-    if @message.save 
-      redirect_to emergency_path(@emergency)
+    if @message.save
+      redirect_to emergency_path(@message.emergency_id)
     else
-      render :new
+      render "emergencies/show"
     end
   end
 
   def edit
-    @message = @emergency.messages.edit(messages_params)
   end
 
   def update
-    if @message = @emergency.messages.update(messages_params)
-      redirect_to emergency_path(@emergency)
+    if @message.update(message_params)
+      redirect_to emergency_path(@message.emergency_id)
     else
       render :edit
     end
   end
 
-  def show
-  end
-
   def destroy
-    if @message = @emergency.messages.destroy(messages_params) 
-      redirect_to emergency_path(@emergency)
+    if @message.destroy
+      redirect_to emergency_path(@message.emergency_id)
     else
-      redirect_to messages_path, flash: {error: 'Something goes wrong'}
+      redirect_to emergency_path(@message.emergency_id), flash: {error: 'Something went wrong'}
     end
   end
 
   private
+  def message_params
+    params.require(:message).permit(:text, :claim_closed)
+  end
 
-    def find_emergency_path
-      @emergency = Emergency.find(params[:id])
-    end
-
-    def messages_params
-      params.require(:message).permit(:user_name, :text, :claim_closed)
-    end
+  def find_message
+    @message = Message.find(params[:id])
+  end
 end

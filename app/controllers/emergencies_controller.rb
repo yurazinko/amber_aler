@@ -3,10 +3,6 @@ class EmergenciesController < ApplicationController
   before_action :find_emergency, only: [:edit, :update, :show, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :only_author!, only: [:edit, :update, :destroy]
- 
-  def index
-    @emergencies = Emergency.all.order('created_at DESC')
-  end
 
   def new
     @emergency = Emergency.new
@@ -22,6 +18,10 @@ class EmergenciesController < ApplicationController
     end
   end
 
+  def index
+    @emergencies = Emergency.all.order('created_at').last(5)
+  end
+
   def edit
   end
 
@@ -34,6 +34,7 @@ class EmergenciesController < ApplicationController
   end
 
   def show
+    @message = Message.new(emergency: @emergency)
   end
 
   def destroy
@@ -58,5 +59,4 @@ class EmergenciesController < ApplicationController
     def find_emergency
       @emergency = Emergency.find(params[:id])
     end
-
 end

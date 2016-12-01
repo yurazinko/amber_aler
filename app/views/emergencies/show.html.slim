@@ -1,13 +1,18 @@
-h1
-  = @emergency.title
+div.row
+  div.col-md-8
+    div.fr-view
+      h1 = @emergency.title
+      p.lead = "by #{@emergency.user.display_name}"
+      hr
+      p
+        span.glyphicon.glyphicon-time
+        = "Posted on #{@emergency.created_at}"
+      hr
+      = sanitize @emergency.description, tags: %w(p strong em u table thead tbody th tr td h4 h5 h6 pre br hr ul ol li blockquote), attributes: %w(id class style)
+    = render 'messages/list', emergency: @emergency
 
-h4
-  = @emergency.description
-  
-= render 'messages/messages'
-= render 'messages/form'
-
-div.emergency-nav
-  = link_to "Create new message", new_message_path(@emergency)
-br  
-  = link_to "All Emergencirs", emergencies_path
+  div.col-md-4
+    div.well
+      h4
+        | Navigation
+      = link_to "All Emergencirs", emergencies_path
