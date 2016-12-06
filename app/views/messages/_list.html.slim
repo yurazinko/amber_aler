@@ -2,7 +2,7 @@
   div.media id="message-#{message.id}"
     /user avatar
     a.pull-left href='#'
-      img.media-object src=avatar_url(message.user, 200) alt=message.user.name style="width: 100px"
+      img.media-object src=avatar_url(message.user, 64) alt=message.user.name style="width: 100px"
     div.media-body
       h4.media-heading
         /title can go here
@@ -20,6 +20,3 @@ h4
   | Leave a Message:
 = render 'messages/form', emergency: emergency
 
-javascript:
-  var data = new Identicon('d3b07384d113edec49eaa6238ad5ff00', 420).toString();
-  $('a.pull-left').innerHTML = '<img width=100 height=100 src="data:image/png;base64,' + data + '">';
