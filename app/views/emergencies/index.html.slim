@@ -17,3 +17,4 @@ table.table
           - if emergency.user == current_user
             = link_to "Destroy", emergency_path(emergency), method: :delete, data:{confirm: 'Are you sure?'}
 = link_to "Create new emergency", new_emergency_path
+= paginate @emergencies
