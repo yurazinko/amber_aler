@@ -5,7 +5,6 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     @message.emergency_id = params[:emergency_id]
     @message.user = current_user
-
     if @message.save
       redirect_to emergency_path(@message.emergency_id)
     else

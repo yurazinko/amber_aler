@@ -10,6 +10,11 @@ html
     == csrf_meta_tags
   body
     == render 'layouts/navigation'
-    div.container[role="main"]
+    main[role="main"]
       == render 'layouts/messages'
       == yield
+      footer
+        div.row
+          div.col-lg-12
+            p 
+              | Copyright © AmberAler 2016

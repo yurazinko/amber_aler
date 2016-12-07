@@ -29,7 +29,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :emergencies
+  has_many :emergencies, dependent: :destroy
+  has_many :messages,    dependent: :destroy
 
   def display_name
     name.presence || "User ##{id}"
