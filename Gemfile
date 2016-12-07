@@ -7,6 +7,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'wysiwyg-rails'
+gem 'truncate_html'
+gem 'kaminari'
 group :development, :test do
   gem 'byebug'
 end

@@ -19,7 +19,7 @@ class EmergenciesController < ApplicationController
   end
 
   def index
-    @emergencies = Emergency.all.order('created_at').last(5)
+    @emergencies = Emergency.all.order(updated_at: :desc).limit(5)
   end
 
   def edit
