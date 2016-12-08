@@ -35,7 +35,7 @@ class EmergenciesController < ApplicationController
 
   def show
     @message = Message.new(emergency: @emergency)
-    @messages = @emergency.messages.page(params[:page]).per(5)
+    @messages = @emergency.messages.page(params[:page]).per(20)
   end
 
   def destroy
