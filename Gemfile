@@ -9,6 +9,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'wysiwyg-rails'
 gem 'truncate_html'
 gem 'kaminari'
+gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
+gem 'mini_magick'
 group :development, :test do
   gem 'byebug'
 end

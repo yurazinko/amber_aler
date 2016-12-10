@@ -16,6 +16,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  name                   :string
+#  avatar                 :string
 #
 # Indexes
 #
@@ -26,6 +27,10 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  require 'carrierwave/orm/activerecord'
+
+  mount_uploader :avatar, AvatarUploader
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -33,8 +38,10 @@ class User < ApplicationRecord
   has_many :messages,    dependent: :destroy
 
   validates :name, presence: true
+  validates_presence_of   :avatar
 
   def display_name
     name.presence || "User ##{id}"
   end
+
 end
