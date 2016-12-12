@@ -1,17 +1,17 @@
 section
   div.col-md-8
-    h1.page-header
-      | Recent Emergencies
+    h1.page-header = t('emergencies.recent_emergencies')
     
     - @emergencies.each do |emergency|
       h2 = link_to emergency.title, emergency
-      p.lead = "by #{emergency.user.display_name}"
+      p.lead = t('emergency.author', name: emergency.user.display_name)
       p
         - if emergency.updated_at != emergency.created_at
           span.glyphicon.glyphicon-time>
-          span => "Updated on #{emergency.updated_at}"
+          span => "Updated on #{l(emergency.updated_at, format: :short)}"
         span.glyphicon.glyphicon-time>
-        span => "Posted on #{emergency.created_at}"
+        span => "Posted on #{l(emergency.created_at, format: :short)}"
+        b => t('emergency.comments', count: emergency.messages.count)
         - if emergency.user == current_user
           => link_to "Edit", edit_emergency_path(emergency)
           = link_to "Destroy", emergency_path(emergency), method: :delete, data:{confirm: 'Are you sure?'}
