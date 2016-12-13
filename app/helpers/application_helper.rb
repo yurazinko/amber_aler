@@ -5,10 +5,13 @@ module ApplicationHelper
     res
   end
 
-#  def avatar_url(user, size: 200, real: false)
-#    gravatar_id = email_hexdigest_for user
-#    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}#{real && "&d=404"}"
-#  end
+  def avatar_source(user)
+  	if user.avatar?
+      image_tag user.avatar.url(:thumb)
+    else
+      image_tag "default-userpic.jpg"
+    end
+  end
 
 #  def avatar_tag(user, size: 200, alt: nil, real: false, **options)
 #    image_tag(

@@ -3,6 +3,8 @@ section
     div.fr-view
       h1.page-header = @emergency.title
       p.lead = "by #{@emergency.user.display_name}"
+      a.pull-left href='#'
+        = avatar_source(@emergency.user)
       hr
       p
         span.glyphicon.glyphicon-time>
