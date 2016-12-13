@@ -1,0 +1,13 @@
+uk:
+  emergencies:
+    recent_emergencies: Недавні випадки
+  emergency:
+    author: 'автор: %{name}'
+    comments:
+      many: '%{count} коментарі'
+      one: '%{count} коментар'
+      other: '%{count} коментарів'
+      zero: жодного коментаря
+  layout:
+    copyright: Копірайт © Амбер Алер 2016
+    title: Амбер Алер
