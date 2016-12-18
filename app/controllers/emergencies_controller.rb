@@ -47,6 +47,7 @@ class EmergenciesController < ApplicationController
   end
 
   private
+  
     def only_author!
       unless @emergency.user == current_user
         redirect_to emergencies_path, flash: {error: 'Only author can update emergency'}

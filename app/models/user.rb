@@ -17,6 +17,7 @@
 #  updated_at             :datetime         not null
 #  name                   :string
 #  avatar                 :string
+#  role                   :string           default("user")
 #
 # Indexes
 #
@@ -28,6 +29,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   require 'carrierwave/orm/activerecord'
+
+  ROLES = ['user', 'admin']
 
   mount_uploader :avatar, AvatarUploader
 
@@ -43,5 +46,10 @@ class User < ApplicationRecord
   def display_name
     name.presence || "User ##{id}"
   end
-
+  
+  ROLES.each do |rolename|
+    define_method "#{rolename}?" do 
+      self.role == rolename
+    end
+  end
 end
