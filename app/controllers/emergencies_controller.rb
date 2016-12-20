@@ -35,6 +35,7 @@ class EmergenciesController < ApplicationController
 
   def show
     @message = Message.new(emergency: @emergency)
+    @messages = @emergency.messages.page(params[:page]).per(20)
   end
 
   def destroy
@@ -46,6 +47,7 @@ class EmergenciesController < ApplicationController
   end
 
   private
+  
     def only_author!
       unless @emergency.user == current_user
         redirect_to emergencies_path, flash: {error: 'Only author can update emergency'}

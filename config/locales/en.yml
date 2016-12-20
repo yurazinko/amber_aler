@@ -1,1 +1,12 @@
 en:
+  emergencies:
+    recent_emergencies: Recent Emergencies
+  emergency:
+    author: 'by %{name}'
+    comments:
+      one: 1 comment
+      other: '%{count} comments'
+      zero: no comments
+  layout:
+    copyright: Copyright © AmberAler 2016
+    title: Amber Aler

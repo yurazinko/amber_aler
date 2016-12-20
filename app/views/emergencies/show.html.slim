@@ -3,13 +3,24 @@ section
     div.fr-view
       h1.page-header = @emergency.title
       p.lead = "by #{@emergency.user.display_name}"
+      a.pull-left href='#'
+        = avatar_source(@emergency.user)
       hr
       p
         span.glyphicon.glyphicon-time>
         span = "Posted on #{@emergency.created_at}"
       hr
       = sanitize_wysiwyg @emergency.description
-    = render 'messages/list', emergency: @emergency
+
+    = render 'messages/list'
+
+    hr
+    h4
+      - if @emergency.allow_messages_for? current_user 
+        | Leave a Message:
+        = render 'messages/form', emergency: @emergency
+      - else
+        | Messages not allowed
 
   div.col-md-4
     div.well

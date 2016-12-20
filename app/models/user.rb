@@ -16,6 +16,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  name                   :string
+#  avatar                 :string
+#  role                   :string           default("user")
 #
 # Indexes
 #
@@ -26,13 +28,28 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  require 'carrierwave/orm/activerecord'
+
+  ROLES = ['user', 'admin']
+
+  mount_uploader :avatar, AvatarUploader
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :emergencies, dependent: :destroy
   has_many :messages,    dependent: :destroy
 
+  validates :name, presence: true
+  validates_presence_of   :avatar
+
   def display_name
     name.presence || "User ##{id}"
+  end
+  
+  ROLES.each do |rolename|
+    define_method "#{rolename}?" do 
+      self.role == rolename
+    end
   end
 end

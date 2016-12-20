@@ -1,0 +1,12 @@
+section
+  div.col-md-4
+    h1 == @user.name if @user.name
+    h4 == @user.email if @user.email  
+  div.col-md-4	
+  	= avatar_source(@user)
+  div.col-md-4
+  	= link_to "Edit profile", edit_user_registration_path
+section
+	- @user.emergencies.each do |emergency|
+		h2 = link_to emergency.title, emergency_path(emergency)
+  	
