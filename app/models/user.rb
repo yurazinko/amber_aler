@@ -18,7 +18,7 @@
 #  name                   :string
 #  avatar                 :string
 #  role                   :string           default("user")
-#  active                 :boolean
+#  active                 :boolean          default(TRUE)
 #
 # Indexes
 #
