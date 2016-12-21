@@ -14,7 +14,9 @@ section
         b => t('emergency.comments', count: emergency.messages.count)
         - if emergency.user == current_user
           => link_to "Edit", edit_emergency_path(emergency)
-          = link_to "Destroy", emergency_path(emergency), method: :delete, data:{confirm: 'Are you sure?'}
+          = link_to "Destroy", emergency_path(emergency), method: :delete, data:{confirm: 'Are you sure?'}unless current_user.admin?
+        - if user_signed_in? && current_user.admin?
+          = link_to "Destroy", emergency_path(emergency), method: :delete, data:{confirm: 'Are you sure?'} 
       hr
       = sanitize_wysiwyg emergency.description, shorten: 100
       = link_to 'Read More', emergency, class: "btn btn-primary"

@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-  	resources :users
+  	resources :users do
+      member do 
+        patch 'toggle_active'
+      end
+    end
   end
 end
