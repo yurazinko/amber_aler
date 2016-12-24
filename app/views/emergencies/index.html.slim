@@ -1,31 +1,39 @@
 section
-  div.col-md-8
-    h1.page-header = t('emergencies.recent_emergencies')
-    
-    - @emergencies.each do |emergency|
-      h2 = link_to emergency.title, emergency
-      p.lead = t('emergency.author', name: emergency.user.display_name)
-      p
-        - if emergency.updated_at != emergency.created_at
+  .row
+    div.col-md-8
+      h1.page-header = t('emergencies.recent_emergencies')
+      
+      - @emergencies.each do |emergency|
+        h2 = link_to emergency.title, emergency
+        p.lead = t('emergency.author', name: emergency.user.display_name)
+        p
+          - if emergency.updated_at != emergency.created_at
+            span.glyphicon.glyphicon-time>
+            span => "Updated on #{l(emergency.updated_at, format: :short)}"
           span.glyphicon.glyphicon-time>
-          span => "Updated on #{l(emergency.updated_at, format: :short)}"
-        span.glyphicon.glyphicon-time>
-        span => "Posted on #{l(emergency.created_at, format: :short)}"
-        b => t('emergency.comments', count: emergency.messages.count)
-        - if emergency.user == current_user
-          => link_to "Edit", edit_emergency_path(emergency)
-          = link_to "Destroy", emergency_path(emergency), method: :delete, data:{confirm: 'Are you sure?'}unless current_user.admin?
-        - if user_signed_in? && current_user.admin?
-          = link_to "Destroy", emergency_path(emergency), method: :delete, data:{confirm: 'Are you sure?'} 
-      hr
-      = sanitize_wysiwyg emergency.description, shorten: 100
-      = link_to 'Read More', emergency, class: "btn btn-primary"
-      hr
+          span => "Posted on #{l(emergency.created_at, format: :short)}"
+          b => t('emergency.comments', count: emergency.messages.count)
+          - if emergency.user == current_user
+            => link_to "Edit", edit_emergency_path(emergency)
+            = link_to "Destroy", emergency_path(emergency), method: :delete, data:{confirm: 'Are you sure?'}unless current_user.admin?
+          - if user_signed_in? && current_user.admin?
+            = link_to "Destroy", emergency_path(emergency), method: :delete, data:{confirm: 'Are you sure?'} 
+        hr
+        = sanitize_wysiwyg emergency.description, shorten: 100
+        = link_to 'Read More', emergency, class: "btn btn-primary"
+        hr
 
-    = paginate @emergencies
-     
-  div.col-md-4
-    div.well
-      h4
-        | Navigation
-      = link_to "Create new emergency", new_emergency_path
+      = paginate @emergencies
+    .col-md-4
+      .row
+        .col-md-12
+          = form_tag emergencies_path, method: :get, enforce_utf8: false, class: 'form-inline' do
+            .form-group
+              = text_field_tag 'q', '', placeholder: 'Search...', class: 'form-control'
+              = submit_tag 'Search', name: nil, class: 'btn btn-default'
+      .row
+        .col-md-12
+          div.well
+            h4
+              | Navigation
+            = link_to "Create new emergency", new_emergency_path
