@@ -36,4 +36,4 @@ section
           div.well
             h4
               | Navigation
-            = link_to "Create new emergency", new_emergency_path
+            = link_to_if current_user.active, "Create new emergency", new_emergency_path
