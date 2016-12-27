@@ -1,5 +1,5 @@
-class Admin::UsersController < ApplicationController
-	before_filter :load_user, only: [:edit, :update, :destroy]
+class Admin::UsersController < Admin::ApplicationController
+	before_action :load_user, only: [:edit, :update, :destroy, :toggle_active]
 
 	def index
 		@users = User.all
@@ -14,6 +14,11 @@ class Admin::UsersController < ApplicationController
 		else
 			render 'edit'
 		end
+	end
+
+	def toggle_active
+		@user.toggle! :active
+		redirect_to [:admin, :users]
 	end
 
 	def destroy

@@ -1,5 +1,7 @@
 section
   div.col-md-4
+    - unless current_user.active
+      p Your account is blocked, please contact with Admin
     h1 == @user.name if @user.name
     h4 == @user.email if @user.email  
   div.col-md-4	
