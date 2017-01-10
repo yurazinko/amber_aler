@@ -19,5 +19,14 @@
 require 'rails_helper'
 
 RSpec.describe Message, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "is not valid without a text" do 
+  	message = Message.new
+  	expect(message).not_to be_valid
+  end
+
+   it "is not valid with a text longer than 100" do 
+  	message = Message.new(text: 'a' * 101)
+  	expect(message).to be_valid
+  end
+
 end
