@@ -19,6 +19,8 @@
 class Message < ApplicationRecord
   belongs_to :user
   belongs_to :emergency
+  
+  validates :text, presence: true
 
   before_save do |record|
     emergency.update(status: Emergency::CLOSED) if claim_closed?
